@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>youtube-downloader</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1>YTd-pro</h1>
+        </nav>
+    </header>
+    <main>
+        <span class="title1"><h1>Download youtube videos</h1></span>
+        <span class="desc">Here you can download videos simply by pasting youtube channel link.</span>
+        <br>
+        <div class="search">
+            <form action="/submit" method="POST">
+                <label for="userInput">Paste link Here</label><br><br>
+                <span><input class="input" type="text" id="userInput" name="userInput" required></span>
+                <button type="submit" class="button">Submit</button>
+            </form>
+        </div>
+        <br><br><br>
+        <div class="about">
+            <h1>The best youtube downloader</h1>
+            <p>YTd-pro YouTube downloader is an online tool that allows users to download YouTube videos in a variety of formats. With YTd-pro YouTube downloader, users can easily download their favorite YouTube videos and save them for offline viewing. The process is simple.
+
+                With YTd-pro YouTube Video Downloader, the age of limitless content is here. Infinite viewing is at your fingertips, without the constraint of internet connectivity. Download in HD, relish in the clarity, and enjoy the boundless world of YouTube offline!</p>
+        </div>
+        
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); 
+        
+                const userInput = document.getElementById('userInput').value;
+        
+                fetch('http://127.0.0.1:8000/submit', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        userInput: userInput
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                   
+                    alert(data.message || data.error);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred');
+                });
+            });
+        });
+        </script>
+</body>
+
+</html>
